@@ -7,11 +7,16 @@ use Moose::Util::TypeConstraints qw(enum subtype as where);
 
 our $VERSION = '0.006';
 
-enum 'PostScript::Barcode::Meta::Types::Enum::azteccode::format'    => qw(full compact rune);
-enum 'PostScript::Barcode::Meta::Types::Enum::datamatrix::encoding' => qw(byte ascii edifact c40 text x12);
-enum 'PostScript::Barcode::Meta::Types::Enum::qrcode::eclevel'      => qw(L M Q H);
-enum 'PostScript::Barcode::Meta::Types::Enum::qrcode::version'      => (qw(M1 M2 M3 M4), 1 .. 40);
-enum 'PostScript::Barcode::Meta::Types::Enum::qrcode::format'       => qw(full micro);
+enum 'PostScript::Barcode::Meta::Types::Enum::azteccode::format'
+    => [qw(full compact rune)];
+enum 'PostScript::Barcode::Meta::Types::Enum::datamatrix::encoding'
+    => [[qw(byte ascii edifact c40 text x12)];
+enum 'PostScript::Barcode::Meta::Types::Enum::qrcode::eclevel'
+    => [qw(L M Q H)];
+enum 'PostScript::Barcode::Meta::Types::Enum::qrcode::version'
+    => [(qw(M1 M2 M3 M4), 1 .. 40)];
+enum 'PostScript::Barcode::Meta::Types::Enum::qrcode::format'
+    => [qw(full micro)];
 subtype 'PostScript::Barcode::Meta::Types::Bool'                    => as 'Bool';
 subtype 'PostScript::Barcode::Meta::Types::Num'                     => as 'Num';
 subtype 'PostScript::Barcode::Meta::Types::Tuple'                   => as 'ArrayRef[Num]' => where {2 == @{$_}};
